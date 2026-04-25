@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" font-family="-apple-system, system-ui, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+    <style>
+      .stage { fill: #f8fafc; stroke: #334155; stroke-width: 1.5; rx: 6; }
+      .stage-llm { fill: #eff6ff; stroke: #2563eb; stroke-width: 1.5; rx: 6; }
+      .stage-rule { fill: #f0fdf4; stroke: #16a34a; stroke-width: 1.5; rx: 6; }
+      .stage-output { fill: #fef3c7; stroke: #d97706; stroke-width: 1.5; rx: 6; }
+      .stage-side { fill: #faf5ff; stroke: #9333ea; stroke-width: 1.5; rx: 6; }
+      .label { fill: #0f172a; font-size: 13px; font-weight: 600; }
+      .sublabel { fill: #475569; font-size: 11px; }
+      .arrow-line { stroke: #475569; stroke-width: 1.5; fill: none; }
+      .legend-text { fill: #0f172a; font-size: 11px; }
+      .title { fill: #0f172a; font-size: 18px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <text x="20" y="30" class="title">Agentic Support Platform — Pipeline Flow</text>
+
+  <!-- Main pipeline column -->
+  <text x="180" y="70" class="label">Main Pipeline (Consumer + Paid)</text>
+
+  <!-- Stage 1: Fetcher -->
+  <rect x="80" y="90" width="280" height="50" class="stage"/>
+  <text x="220" y="113" class="label" text-anchor="middle">[1] Fetcher</text>
+  <text x="220" y="130" class="sublabel" text-anchor="middle">Normalize &amp; validate from HubSpot</text>
+
+  <!-- Stage 2: Orchestrator (rules first) -->
+  <rect x="80" y="170" width="280" height="70" class="stage-rule"/>
+  <text x="220" y="195" class="label" text-anchor="middle">[2] Orchestrator</text>
+  <text x="220" y="213" class="sublabel" text-anchor="middle">Hard rules first (confidence 1.0)</text>
+  <text x="220" y="228" class="sublabel" text-anchor="middle">→ Claude only on leftover ambiguity</text>
+
+  <!-- Stage 2.5: Action layer (LLM) -->
+  <rect x="80" y="270" width="280" height="70" class="stage-llm"/>
+  <text x="220" y="295" class="label" text-anchor="middle">[2.5] Action Layer</text>
+  <text x="220" y="313" class="sublabel" text-anchor="middle">12 routes, route-specific handlers</text>
+  <text x="220" y="328" class="sublabel" text-anchor="middle">Agents · Templates · HubSpot API</text>
+
+  <!-- Stage 2.6: Escalation polling -->
+  <rect x="80" y="370" width="280" height="50" class="stage"/>
+  <text x="220" y="393" class="label" text-anchor="middle">[2.6] Escalation Polling</text>
+  <text x="220" y="410" class="sublabel" text-anchor="middle">Slack reactions on pending escalations</text>
+
+  <!-- Stage 2.7: Trend detection -->
+  <rect x="80" y="450" width="280" height="60" class="stage-side"/>
+  <text x="220" y="473" class="label" text-anchor="middle">[2.7] Trend Detection</text>
+  <text x="220" y="490" class="sublabel" text-anchor="middle">Qdrant-backed incident fingerprinting</text>
+  <text x="220" y="505" class="sublabel" text-anchor="middle">+ discovery gap tracker</text>
+
+  <!-- Stage 2.75: Audit -->
+  <rect x="80" y="540" width="280" height="50" class="stage"/>
+  <text x="220" y="563" class="label" text-anchor="middle">[2.75] Audit Log</text>
+  <text x="220" y="580" class="sublabel" text-anchor="middle">Every decision → decisions.jsonl</text>
+
+  <!-- Stage 3: Run Report -->
+  <rect x="80" y="620" width="280" height="50" class="stage-output"/>
+  <text x="220" y="643" class="label" text-anchor="middle">[3] Run Report</text>
+  <text x="220" y="660" class="sublabel" text-anchor="middle">Metrics summary → Slack</text>
+
+  <!-- Arrows main pipeline -->
+  <line x1="220" y1="140" x2="220" y2="168" class="arrow-line" marker-end="url(#arrow)"/>
+  <line x1="220" y1="240" x2="220" y2="268" class="arrow-line" marker-end="url(#arrow)"/>
+  <line x1="220" y1="340" x2="220" y2="368" class="arrow-line" marker-end="url(#arrow)"/>
+  <line x1="220" y1="420" x2="220" y2="448" class="arrow-line" marker-end="url(#arrow)"/>
+  <line x1="220" y1="510" x2="220" y2="538" class="arrow-line" marker-end="url(#arrow)"/>
+  <line x1="220" y1="590" x2="220" y2="618" class="arrow-line" marker-end="url(#arrow)"/>
+
+  <!-- Lead Gen pipeline column -->
+  <text x="640" y="70" class="label">Lead Gen Agent (Higher-Tier Queues)</text>
+
+  <!-- L1: Lead Gen Scanner -->
+  <rect x="540" y="90" width="280" height="50" class="stage"/>
+  <text x="680" y="113" class="label" text-anchor="middle">[L1] Lead Gen Scanner</text>
+  <text x="680" y="130" class="sublabel" text-anchor="middle">Disjoint pipelines from main engine</text>
+
+  <!-- L2: Three-gate qualifier -->
+  <rect x="540" y="170" width="280" height="120" class="stage-rule"/>
+  <text x="680" y="195" class="label" text-anchor="middle">[L2] Lead Gen Qualifier</text>
+  <text x="680" y="220" class="sublabel" text-anchor="middle">Gate 1: Job title (rule-based)</text>
+  <text x="680" y="240" class="sublabel" text-anchor="middle">Gate 2: Company size (rule-based)</text>
+  <text x="680" y="260" class="sublabel" text-anchor="middle">Gate 3: Ticket intent (Claude)</text>
+  <text x="680" y="280" class="sublabel" text-anchor="middle">— LLM only after rule gates pass</text>
+
+  <!-- L3: Output -->
+  <rect x="540" y="320" width="280" height="70" class="stage-output"/>
+  <text x="680" y="345" class="label" text-anchor="middle">[L3] Add to Lead List</text>
+  <text x="680" y="363" class="sublabel" text-anchor="middle">HubSpot ILS list +</text>
+  <text x="680" y="378" class="sublabel" text-anchor="middle">structured contact note</text>
+
+  <!-- Lead gen audit -->
+  <rect x="540" y="420" width="280" height="50" class="stage"/>
+  <text x="680" y="443" class="label" text-anchor="middle">Lead Gen Audit Log</text>
+  <text x="680" y="460" class="sublabel" text-anchor="middle">leadgen_decisions.jsonl</text>
+
+  <!-- Arrows lead gen -->
+  <line x1="680" y1="140" x2="680" y2="168" class="arrow-line" marker-end="url(#arrow)"/>
+  <line x1="680" y1="290" x2="680" y2="318" class="arrow-line" marker-end="url(#arrow)"/>
+  <line x1="680" y1="390" x2="680" y2="418" class="arrow-line" marker-end="url(#arrow)"/>
+
+  <!-- Module isolation note -->
+  <rect x="540" y="500" width="280" height="100" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.5" rx="6"/>
+  <text x="680" y="525" class="label" text-anchor="middle">Module Isolation</text>
+  <text x="555" y="548" class="sublabel">• Independent modules, same scheduler</text>
+  <text x="555" y="565" class="sublabel">• Disjoint pipelines, separate state</text>
+  <text x="555" y="582" class="sublabel">• Failure in one cannot block the other</text>
+
+  <!-- Right side: knowledge layer -->
+  <text x="1000" y="70" class="label">Knowledge Layer (Qdrant)</text>
+
+  <rect x="900" y="90" width="280" height="200" class="stage"/>
+  <text x="1040" y="115" class="label" text-anchor="middle">6 Collections + Incidents</text>
+  <text x="915" y="140" class="sublabel">kb_jira              0.70</text>
+  <text x="915" y="158" class="sublabel">kb_internal          0.60</text>
+  <text x="915" y="176" class="sublabel">kb_known_issues      0.70</text>
+  <text x="915" y="194" class="sublabel">kb_product_a         0.40</text>
+  <text x="915" y="212" class="sublabel">kb_product_b         0.40</text>
+  <text x="915" y="230" class="sublabel">kb_product_c         0.40</text>
+  <text x="915" y="252" class="sublabel" font-style="italic">kb_incidents (persistent</text>
+  <text x="915" y="266" class="sublabel" font-style="italic">running-centroid match)  0.75</text>
+  <text x="915" y="282" class="sublabel" fill="#9333ea">Voyage AI voyage-3 · 1024d</text>
+
+  <!-- Safety gates -->
+  <rect x="900" y="320" width="280" height="120" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" rx="6"/>
+  <text x="1040" y="345" class="label" text-anchor="middle">Safety Gates</text>
+  <text x="915" y="370" class="sublabel">• 3-layer dry-run defaults (true)</text>
+  <text x="915" y="388" class="sublabel">• Zero-config is safe</text>
+  <text x="915" y="406" class="sublabel">• 3-tier kill switch (≤ 3h to instant)</text>
+  <text x="915" y="424" class="sublabel">• 770+ tests · build-breaking guards</text>
+
+  <!-- Test guarantees -->
+  <rect x="900" y="470" width="280" height="130" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.5" rx="6"/>
+  <text x="1040" y="495" class="label" text-anchor="middle">Build-Breaking Guarantees</text>
+  <text x="915" y="520" class="sublabel">• Refund template promise-phrases</text>
+  <text x="915" y="538" class="sublabel">• Pipeline ID validation vs live API</text>
+  <text x="915" y="556" class="sublabel">• Classifier failure → never reach</text>
+  <text x="915" y="571" class="sublabel">  eligibility tree</text>
+  <text x="915" y="589" class="sublabel">• HubSpot filter cap enforcement</text>
+
+  <!-- Legend -->
+  <rect x="80" y="700" width="14" height="14" class="stage-rule"/>
+  <text x="100" y="712" class="legend-text">Rule-based / deterministic</text>
+
+  <rect x="270" y="700" width="14" height="14" class="stage-llm"/>
+  <text x="290" y="712" class="legend-text">LLM (Claude)</text>
+
+  <rect x="400" y="700" width="14" height="14" class="stage-side"/>
+  <text x="420" y="712" class="legend-text">Vector / retrieval</text>
+
+  <rect x="540" y="700" width="14" height="14" class="stage-output"/>
+  <text x="560" y="712" class="legend-text">Output / write</text>
+
+  <rect x="660" y="700" width="14" height="14" class="stage"/>
+  <text x="680" y="712" class="legend-text">Infrastructure</text>
+</svg>
